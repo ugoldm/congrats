@@ -1048,13 +1048,13 @@ const thanksObserver = new IntersectionObserver((entries) => {
     if (entry.isIntersecting && !thanksFireworksTriggered) {
       thanksFireworksTriggered = true;
       startFireworks();
-      // Auto-stop after 5 seconds so it doesn't run forever
+      // Auto-stop after 10 seconds so it doesn't run forever
       setTimeout(() => {
         // Only stop if envelope hasn't been opened (which starts its own fireworks)
         if (!envelopeOpened) {
           stopFireworks();
         }
-      }, 5000);
+      }, 10000);
     }
   });
 }, {
