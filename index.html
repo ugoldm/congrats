@@ -261,7 +261,7 @@ body {
   transform: translateY(0);
 }
 
-.timeline-item:nth-child(odd) {
+.timeline-item:nth-child(even) {
   flex-direction: row-reverse;
   text-align: right;
 }
@@ -809,8 +809,8 @@ body {
 <!-- ============ SECTION 1: TITLE ============ -->
 <section class="section section-title" id="section-title">
   <div class="title-stars" id="stars-container"></div>
-  <h1 class="title-main">С днём рождения!</h1>
-  <p class="title-sub">Дорогой папа</p>
+  <h1 class="title-main">С днём рождения,<br>дорогой папа!</h1>
+  <p class="title-sub">Мы все тебя очень любим</p>
   <div class="scroll-hint" id="scroll-hint">
     <span>Прокрути вниз</span>
     <div class="scroll-arrow"></div>
@@ -823,8 +823,8 @@ body {
     <h2 class="scene-heading">Спасибо тебе за всё</h2>
     <ul class="thanks-list">
       <li class="thanks-item" data-animate data-delay="100">
-        <span class="emoji">🤝</span>
-        За то, что всегда рядом —<br>в радости и в трудные моменты
+        <span class="emoji">☀️</span>
+        За то, что ты всегда рядом —<br>и в радости, и в трудные моменты
       </li>
       <li class="thanks-item" data-animate data-delay="250">
         <span class="emoji">💡</span>
@@ -850,18 +850,18 @@ body {
       <div class="timeline-item" data-animate data-delay="100">
         <div class="timeline-text">
           <strong>Смелость и решительность</strong>
-          Ты показал, что нужно идти за мечтой, даже если путь непрост
+          Ты научил, что нужно идти за мечтой, даже если путь непрост
         </div>
         <div class="timeline-dot"></div>
         <div class="timeline-text" style="visibility:hidden" aria-hidden="true"></div>
       </div>
       <div class="timeline-item" data-animate data-delay="250">
-        <div class="timeline-text" style="visibility:hidden" aria-hidden="true"></div>
-        <div class="timeline-dot"></div>
         <div class="timeline-text">
           <strong>Забота о семье</strong>
           Для тебя семья всегда на первом месте — и мы это чувствуем каждый день
         </div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-text" style="visibility:hidden" aria-hidden="true"></div>
       </div>
       <div class="timeline-item" data-animate data-delay="400">
         <div class="timeline-text">
@@ -872,12 +872,12 @@ body {
         <div class="timeline-text" style="visibility:hidden" aria-hidden="true"></div>
       </div>
       <div class="timeline-item" data-animate data-delay="550">
-        <div class="timeline-text" style="visibility:hidden" aria-hidden="true"></div>
-        <div class="timeline-dot"></div>
         <div class="timeline-text">
           <strong>Жизненная мудрость</strong>
           Твой опыт — бесценный дар, который мы будем нести с собой всегда
         </div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-text" style="visibility:hidden" aria-hidden="true"></div>
       </div>
     </div>
   </div>
@@ -886,7 +886,7 @@ body {
 <!-- ============ SECTION 4: ENVELOPE ============ -->
 <section class="section section-envelope" id="section-envelope">
   <div class="envelope-scene" data-animate>
-    <p class="envelope-label">Тут кое-что для тебя</p>
+    <p class="envelope-label">Это тебе!</p>
 
     <div class="envelope-wrapper" id="envelope-wrapper">
       <div class="envelope" id="envelope">
@@ -910,10 +910,6 @@ body {
           <div class="heart-seal"></div>
         </div>
       </div>
-    </div>
-
-    <button class="btn-open" id="btn-open">Открыть письмо</button>
-  </div>
 </section>
 
 <!-- ============ SECTION 5: CLOSING ============ -->
@@ -937,21 +933,21 @@ body {
         <span class="modal-detail-icon">🏛️</span>
         <div>
           <div class="modal-detail-label">Театр</div>
-          <div class="modal-detail-value">Название театра</div>
+          <div class="modal-detail-value">Арт-платформа</div>
         </div>
       </div>
       <div class="modal-detail-row">
         <span class="modal-detail-icon">🎬</span>
         <div>
           <div class="modal-detail-label">Спектакль</div>
-          <div class="modal-detail-value">Название спектакля</div>
+          <div class="modal-detail-value">Старгород</div>
         </div>
       </div>
       <div class="modal-detail-row">
         <span class="modal-detail-icon">📅</span>
         <div>
           <div class="modal-detail-label">Дата и время</div>
-          <div class="modal-detail-value">15 марта 2026, 19:00</div>
+          <div class="modal-detail-value">16 февраля 2026, 19:00</div>
         </div>
       </div>
       <div class="modal-detail-row">
@@ -1067,7 +1063,6 @@ thanksObserver.observe(sectionThanks);
    ENVELOPE OPEN LOGIC
    =========================================================== */
 const envelope = document.getElementById('envelope');
-const btnOpen = document.getElementById('btn-open');
 const modalOverlay = document.getElementById('modal-overlay');
 const modalCloseBtn = document.getElementById('modal-close');
 const btnCloseModal = document.getElementById('btn-close-modal');
@@ -1078,7 +1073,6 @@ let envelopeOpened = false;
 let fireworksRunning = false;
 let fireworksTimeout = null;
 
-btnOpen.addEventListener('click', openEnvelope);
 document.getElementById('envelope-wrapper').addEventListener('click', () => {
   if (!envelopeOpened) openEnvelope();
 });
@@ -1086,8 +1080,6 @@ document.getElementById('envelope-wrapper').addEventListener('click', () => {
 function openEnvelope() {
   if (envelopeOpened) return;
   envelopeOpened = true;
-  btnOpen.disabled = true;
-  btnOpen.textContent = 'Открыто!';
 
   // Animate envelope
   envelope.classList.add('opened');
