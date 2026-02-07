@@ -1109,12 +1109,35 @@ function closeModal() {
   modalOverlay.classList.remove('active');
   document.body.style.overflow = '';
 
-  // Fireworks fade out after a few seconds
+  // Stop envelope fireworks — closing section will start its own
   if (fireworksTimeout) clearTimeout(fireworksTimeout);
   fireworksTimeout = setTimeout(() => {
     stopFireworks();
   }, 4000);
 }
+
+/* ===========================================================
+   CLOSING SECTION FIREWORKS — triggered after envelope opened
+   =========================================================== */
+const sectionClosing = document.getElementById('section-closing');
+let closingFireworksTriggered = false;
+
+const closingObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && envelopeOpened && !closingFireworksTriggered) {
+      closingFireworksTriggered = true;
+      startFireworks();
+      // Auto-stop after 10 seconds
+      setTimeout(() => {
+        stopFireworks();
+      }, 10000);
+    }
+  });
+}, {
+  threshold: 0.4
+});
+
+closingObserver.observe(sectionClosing);
 
 modalCloseBtn.addEventListener('click', closeModal);
 btnCloseModal.addEventListener('click', closeModal);
