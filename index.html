@@ -130,16 +130,21 @@ body {
 .scroll-hint {
   position: absolute;
   bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
   opacity: 0;
-  animation: titleAppear 1.5s ease-out 2.5s forwards;
+  animation: hintAppear 1.5s ease-out 2.5s forwards;
   transition: opacity 0.6s ease;
   z-index: 2;
+}
+
+@keyframes hintAppear {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 .scroll-hint.hidden {
@@ -1031,6 +1036,32 @@ const observer = new IntersectionObserver((entries) => {
 });
 
 animElements.forEach(el => observer.observe(el));
+
+/* ===========================================================
+   SECTION-THANKS FIREWORKS — triggered on scroll
+   =========================================================== */
+const sectionThanks = document.getElementById('section-thanks');
+let thanksFireworksTriggered = false;
+
+const thanksObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !thanksFireworksTriggered) {
+      thanksFireworksTriggered = true;
+      startFireworks();
+      // Auto-stop after 5 seconds so it doesn't run forever
+      setTimeout(() => {
+        // Only stop if envelope hasn't been opened (which starts its own fireworks)
+        if (!envelopeOpened) {
+          stopFireworks();
+        }
+      }, 5000);
+    }
+  });
+}, {
+  threshold: 0.4
+});
+
+thanksObserver.observe(sectionThanks);
 
 /* ===========================================================
    ENVELOPE OPEN LOGIC
